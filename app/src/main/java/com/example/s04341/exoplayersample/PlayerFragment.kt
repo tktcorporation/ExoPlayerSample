@@ -8,9 +8,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.offline.DownloadManager
 import com.google.android.exoplayer2.source.AdaptiveMediaSourceEventListener
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.MediaSourceEventListener
@@ -123,7 +126,7 @@ class PlayerFragment : Fragment() {
                 mediaPeriodId: MediaSource.MediaPeriodId?,
                 mediaLoadData: MediaSourceEventListener.MediaLoadData?
             ) {
-
+                Toast.makeText(context,"changed!",Toast.LENGTH_SHORT).show()
             }
 
             override fun onMediaPeriodCreated(windowIndex: Int, mediaPeriodId: MediaSource.MediaPeriodId?) {
@@ -151,6 +154,11 @@ class PlayerFragment : Fragment() {
         exoPlayer?.playWhenReady = true
         //リピートon
         exoPlayer?.repeatMode = Player.REPEAT_MODE_ALL
+
+        val logBtn: Button =view.findViewById(R.id.log_btn)
+        logBtn.setOnClickListener {
+            Toast.makeText(context,exoPlayer?.currentWindowIndex.toString(),Toast.LENGTH_SHORT).show()
+        }
         //画面クリック
 //        playerView?.setOnClickListener {
 //            exoPlayer?.let {
